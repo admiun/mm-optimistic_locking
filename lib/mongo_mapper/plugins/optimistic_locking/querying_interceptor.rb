@@ -21,7 +21,7 @@ module MongoMapper
                                           to_mongo,
                                           :upsert => false, :safe => true)
 
-              raise MongoMapper::StaleDocumentError.new(self) unless result["updatedExisting"]
+              raise MongoMapper::StaleDocumentError.new(self) unless result["nModified"] > 0
             rescue
               self._lock_version -= 1
               raise
